@@ -25,14 +25,4 @@ public class Filehandler {
             fileWriter.write(koltseg.uzlet.toString() + ":");
             fileWriter.write(koltseg.javitas.toString() + "\n");
     }
-    /*
-     * Valahova lehetne tenni egy adatbázis-kezelő
-     * részt is. Ugyanaz a lenne a metódus ami,
-     * kiírja a fájlba és kiírja adatbázisba. 
-     * Mármint a metódus neve lenne ugyanaz.
-     * De lehetnek olyan általános osztály
-     * ahol a konstruktor paraméterként kapná
-     * meg az a típust, amivel tárolni kell.
-     * Mármint, hogy adatbázisba, vagy fájlba.
-     */
 }
