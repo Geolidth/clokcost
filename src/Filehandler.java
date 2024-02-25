@@ -2,39 +2,29 @@
  * Sallai András, 2024-02-19
  * Copyright (c) 2024, Sallai András
  * Licenc: MIT
- * Refakotárlás esetén jelölje meg, ki, mikor.
+ * Refakotárlás: Csajbók-Reményi László, 2024-02-25
  */
 
-// A fájl writer import
 import java.io.FileWriter;
 import java.io.IOException;
-// A print wirter import:
-import java.io.PrintWriter;
 
-
-/*
- * A fájkezelő osztály
- */
 public class Filehandler {
-    /* Az i() metódus kiírja a 
-    kapott költségeket fájlba.
-    */
-    public void i(Koltseg k) {
-        //Próba, hogy lefut-e.
+    FileWriter fileWriter;
+    public void fileWriter(Koltseg koltseg) {
         try {
-            FileWriter fw = new FileWriter("adat.txt", true);
-            fw.write(k.szallitas.toString());
-            fw.write(":");
-            fw.write(k.uzlet.toString());
-            fw.write(":");
-            fw.write(k.javitas.toString());
-            fw.write("\n");
-            fw.close();
-            
-        } catch (IOException e) {
-            // TODO: handle exception
-        }//A cath ág vége
-    }// Az i változó vége
+            fileWriter = new FileWriter("adat.txt", true);
+            writeFile(koltseg);
+            fileWriter.close();
+        } catch (IOException exception) {
+            System.err.println("Hiba: " + exception.getMessage());
+        }
+    }
+
+    private void writeFile(Koltseg koltseg) throws IOException{
+            fileWriter.write(koltseg.szallitas.toString() + ":");
+            fileWriter.write(koltseg.uzlet.toString() + ":");
+            fileWriter.write(koltseg.javitas.toString() + "\n");
+    }
     /*
      * Valahova lehetne tenni egy adatbázis-kezelő
      * részt is. Ugyanaz a lenne a metódus ami,

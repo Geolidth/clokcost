@@ -2,52 +2,55 @@
  * Sallai András, 2024-02-19
  * Copyright (c) 2024, Sallai András
  * Licenc: MIT
- * Refakotárlás esetén jelölje meg, ki, mikor.
+ * Refakotárlás: Csajbók-Reményi László, 2024-02-25
  */
 
 import java.util.Scanner;
 
 public class MainConsole {
-    /*
-     * A csoni objektum osztáj tagjává kellen tenni.
-     * Meg fontolandü a egy try() utasításba zárása is,
-     * így le lesz zárva biztosan.
-     * Ezzel valamit kezdünk.
-     * Most jó lesz így.
-     */
-    /* Szállítási költségecske tárolása a memóriában */
-    //szallitas
-    String szal = "";
+    Scanner scanner;
+    Koltseg koltseg;
+    String deliveryPrice = "";
+    String name = "";
+    String quantity = "";
+    Filehandler fileHandler;
 
-/* Most jön a nevecske */
-// A bekért név tárolása:
-String ez = "";
-
-    /* Most jön a mennyiségecske */
-    //Mennyiség:
-    String ris = "";    
     public MainConsole() {
-        /* dísz sor kiírása */
+        printHeader();
+        scanner = new Scanner(System.in);
+        startScans();
+        initComponents();
+    }
+
+    private void printHeader() {
         System.out.println("╔═════════════════════════════════════════╗");
         System.out.printf("║%17s%25s\n", "Projekt költsége", "║");
-        System.out.println("╚═════════════════════════════════════════╝");        
-        
-        /* A bekérő: */
-        Scanner csoni = new Scanner(System.in);        
+        System.out.println("╚═════════════════════════════════════════╝");
+    }
 
-System.out.println("──────────────────────────────────────────");
-System.out.print("Szállítási költség: ");
-szal = csoni.nextLine();
+    private void startScans() {
+        try {
+            deliveryPrice = scanData("Szállítási költség");
+            name = scanData("Üzleti költség");
+            quantity = scanData("Javítási költség");
+        } catch (Exception exception) {
+            System.err.println("Hiba: " + exception.getMessage());
+        }
+    }
 
-System.out.println("──────────────────────────────────────────");
-System.out.print("Üzleti költség: ");
-ez = csoni.nextLine();
+    private void initComponents() {
+        koltseg = new Koltseg(deliveryPrice, name, quantity);
+        fileHandler = new Filehandler();
+        fileHandler.fileWriter(koltseg);
+    }
 
-System.out.println("──────────────────────────────────────────");
- System.out.print("Javítási költség: ");
-  ris = csoni.nextLine();        
-  Koltseg k = new Koltseg(szal, ez, ris);
-  Filehandler f = new Filehandler();
-  f.i(k);
+    private String scanData(String scanText) {
+        printScan(scanText);
+        return scanner.nextLine();
+    }
+
+    private void printScan(String scanText) {
+        System.out.println("──────────────────────────────────────────");
+        System.out.print(scanText + ": ");
     }
 }
